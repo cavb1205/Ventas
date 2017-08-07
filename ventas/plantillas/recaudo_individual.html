@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+{% load l10n %}
+
+<div class="container-fluid">
+	<h1><strong>Recaudo No.</strong> {{recaudos.id|unlocalize}}</h1><br>
+	<h4><strong>Almacen:</strong> {{recaudos.id_cartera|capfirst}}</h4>
+		<h4><strong>Venta No.:</strong> {{recaudos.id_prestamo}}</h4>
+	<h4><strong>Fecha Recaudo:</strong> {{recaudos.fecha_recaudo}}</h4>
+	<h4><strong>Valor:</strong> {{recaudos.valor}}</h4>
+	
+</div>
+
+
+<br>
+<br>
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+<td><a class="btn btn-default btn-xs" href="/edit_recaudo/{{recaudos.id|unlocalize}}/"><span class="glyphicon glyphicon-edit"></span>Editar</a></td>
+
+<a class="btn btn-default btn-xs" href="/delete_recaudo/{{recaudos.id|unlocalize}}"><span class="glyphicon glyphicon-remove"></span>Eliminar Recaudo</a>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

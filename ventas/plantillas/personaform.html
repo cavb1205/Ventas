@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<div class="form-group">
+	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		<h4>{{formulario.as_p}}</h4>
+		<p><input type='submit' value='Confirmar'/></p>
+	</form>
+</div>
+{% endblock %}

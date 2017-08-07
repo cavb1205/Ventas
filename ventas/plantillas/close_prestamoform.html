@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block contenido %}
+{% load bootstrap %}
+<meta charset="utf-8" />
+
+<link rel="stylesheet" href="/media/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+<script src="/media/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+
+
+<script >
+$(function () {
+$("#fecha_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>
+
+<div class="text-center">
+	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		<legend>Cerrar Venta</legend>
+		{{ formulario|bootstrap_horizontal }}
+		<button type="submit" class="btn btn-primary">Confirmar</button>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block titulo %}Almacenes{% endblock %}
+
+{% block encabezado %}
+	<h1>Almacenes</h1>
+{% endblock %}
+
+{% block contenido %}
+{% load l10n %}
+{% if user.is_superuser %}
+<a class="btn btn-default btn-lg" href="/add_almacen"><span class="glyphicon glyphicon-plus-sign"></span> Almacen</a>
+{% endif %}
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Nombres</th>
+	  				<th>Celular</th>
+	  				<th>Monto</th>
+	  				<th>Ciudad</th>
+	  				
+	  				
+
+	  			</tr>
+	  		</theader>
+    	{% for dato in carteras %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id|unlocalize}}</td>
+    				<td>{{dato.responsable.first_name}}</td>
+    				<td>{{dato.celular}}</td>
+    				<td>{{dato.monto}}</td>
+    				<td>{{dato.ciudad}}</td>
+    				
+    				<td><a class="btn btn-default btn-xs" href="/almacen/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				{% if user.is_superuser %}
+    				
+    				{% endif %}
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<h2>No hay almacenes registrados</h2>
+		{% endfor %}
+		</table>
+	</div>
+
+</ul>
+{% endblock %}

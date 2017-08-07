@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+{% load l10n %}
+<div class="container-fluid">
+	<h1><strong>Base </strong>#{{base.id|unlocalize}}</h1>
+	<h3><strong>Cartera:</strong> {{base.id_cartera}}</h3>
+	<h4><strong>Fecha de Entrega:</strong>	{{base.fecha_entrega}} </h4>
+	<h4><strong>Valor:</strong>	{{base.valor}}</h4>
+	<h4><strong>Observaciones:</strong>	{{base.observaciones|capfirst}}</h4>
+	
+</div>
+
+<br>
+
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+{% if user.is_superuser %}
+<a class="btn btn-default btn-xs" href="/edit_base/{{base.id|unlocalize}}"><span class="glyphicon glyphicon-edit"></span>Editar Base</a>
+<a class="btn btn-default btn-xs" href="/delete_base/{{base.id|unlocalize}}"><span class="glyphicon glyphicon-remove"></span>Eliminar Base</a>
+{% endif %}
+
+
+
+{% endblock %}
+

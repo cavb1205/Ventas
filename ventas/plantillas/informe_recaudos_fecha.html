@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+{% block encabezado %}
+	<h1>Ventas Activas</h1>
+{% endblock %}
+
+{% block contenido %}
+{% load l10n %}
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Regresar</a>
+{% if user.is_superuser %}
+<a class="btn btn-default btn-lg" href="/almacen/{{id_cartera}}"><span class="glyphicon glyphicon-home"></span> Ir Almacen</a>
+{% endif %}
+
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Almacen</th>
+	  				<th>Venta</th>
+	  				<th>Fecha Recaudo</th>
+	  				<th>Valor</th>
+	  				
+	  			</tr>
+	  		</theader>
+    	{% for dato in filtro %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id|unlocalize}}</td>
+    				<td>{{dato.id_cartera}}</td>
+    				<td>{{dato.id_prestamo}}</td>
+    				<td>{{dato.fecha_recaudo}}</td>
+    				<td>{{dato.valor}}</td>
+    				
+    				<td><a class="btn btn-default btn-xs" href="/recaudo/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				
+    				
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay registros de recaudos</p>
+		{% endfor %}
+		</table>
+	</div>
+	{% if prestamos_activos %}
+	<a class="btn btn-default btn-sm" href="/prestamos_activos/page/1"> <span class="glyphicon glyphicon-fast-backward"></span> </a>
+	{% if prestamos_activos.has_previous %}
+		<a class="btn btn-default btn-sm" href="/prestamos_activos/page/{{ prestamos_activos.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if prestamos_activos.has_next %}
+		<a class="btn btn-default btn-sm" href="/prestamos_activos/page/{{ prestamos_activos.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/prestamos_activos/page/{{prestamos_activos.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br><br><br>
+	<h4>Página {{ prestamos_activos.number }} de {{ prestamos_activos.paginator.num_pages }}</h4>
+{% endif %}	
+
+</ul>
+
+<div class="text-center">
+	<h2>TOTAL RECAUDADO: 	&nbsp;&nbsp;&nbsp;&nbsp;{{total}} </h2> 
+</div>
+
+
+
+{% endblock %}

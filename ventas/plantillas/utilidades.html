@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block titulo %}Utilidades{% endblock %}
+
+{% block encabezado %}
+	<h1>Utilidades</h1>
+{% endblock %}
+
+{% block contenido %}
+{% load l10n %}
+{% if user.is_superuser %}
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span>Regresar</a>
+<a class="btn btn-default btn-lg" href="/almacen/{{id_cartera}}"><span class="glyphicon glyphicon-home"></span> Ir Almacen</a>
+{% endif %}
+<a class="btn btn-default btn-lg" href="/add_utilidad"><span class="glyphicon glyphicon-plus-sign"></span> Utilidad</a>
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Almacen</th>
+	  				<th>Fecha</th>
+	  				<th>Valor</th>
+	  				
+	  				
+	  				
+	  				
+
+	  			</tr>
+	  		</theader>
+    	{% for dato in utilidades %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id|unlocalize}}</td>
+    				<td>{{dato.id_cartera}}</td>
+    				<td>{{dato.fecha_entrega}}</td>
+    				<td>{{dato.valor_utilidad}}</td>
+    				
+    				
+    				<td><a class="btn btn-default btn-xs" href="/utilidad/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<h2>No hay utilidades registradas</h2>
+		{% endfor %}
+		</table>
+	</div>
+{% if utilidades %}
+	<a class="btn btn-default btn-sm" href="/utilidades/page/1"> <span class="glyphicon glyphicon-fast-backward"></span></a>
+	{% if utilidades.has_previous %}
+		<a class="btn btn-default btn-sm" href="/utilidades/page/{{ utilidades.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if utilidades.has_next %}
+		<a class="btn btn-default btn-sm" href="/utilidades/page/{{ utilidades.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/utilidades/page/{{utilidades.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br>
+	<h4>Página {{ utilidades.number }} de {{ utilidades.paginator.num_pages }}</h4>
+{% endif %}	
+</ul>
+{% endblock %}

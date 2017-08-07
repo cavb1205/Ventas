@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block titulo %}Bienvenido{% endblock %}
+
+{% block contenido %}
+{% load bootstrap %}
+<meta charset="utf-8" />
+
+
+
+<link rel="stylesheet" href="/media/bootstrap/css/jquery-ui.css">
+<link rel="stylesheet" href="/media/bootstrap/css/general.css">
+
+<script src="/media/bootstrap/js/jquery-ui.js"></script>
+
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+  dateFormat: "dd/mm/yy"
+});
+  });
+</script>
+
+<div>
+	
+	<br>
+	<form id='formulario' method='post' enctype='multipart/form-data' action='/add_venta_confirm/'>{% csrf_token %}
+		<legend><h2>Este cliente aun tiene ventas vigentes, desea agregarle una nueva venta?</h2></legend>
+		{{ formulario|bootstrap_horizontal }}
+		<button type="submit" class="btn btn-primary">Confirmar</button>
+	</form>
+</div>
+{% endblock %}
+
+
+
+	
+		

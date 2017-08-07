@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<meta charset="utf-8" />
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span>Regresar</a>
+<br><br><br>
+
+<link rel="stylesheet" href="/media/bootstrap/css/jquery-ui.css">
+<link rel="stylesheet" href="/media/bootstrap/css/general.css">
+
+<script src="/media/bootstrap/js/jquery-ui.js"></script>
+
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker({
+  dateFormat: "yy-mm-dd"
+});
+  });
+</script>
+
+<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+<br><br><br><br><br><br><br>  
+    <label for="fecha">Fecha:</label>
+    <input type="text" name="fecha" value="" id="datepicker">
+    
+    <input type="submit" value="Buscar" />
+<br><br><br><br><br><br><br><br>
+</form>
+{% endblock %}

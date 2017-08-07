@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block titulo %}Utilidad{% endblock %}
+
+
+{% block contenido %}
+{% load l10n %}
+<div class="container-fluid">
+	<h1>Utilidad #{{utilidad.id|unlocalize}}</h1>
+	<h3><strong>Almacen:</strong> {{utilidad.id_cartera}}</h3>
+	<h4><strong>Fecha de Entrega:</strong>	{{utilidad.fecha_entrega}} </h4>
+	<h4><strong>Valor Utilidad:</strong>	{{utilidad.valor_utilidad}}</h4>
+	<h4><strong>Observaciones:</strong>		{{utilidad.descripcion}}</h4>
+	
+</div>
+
+<br>
+
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+
+<a class="btn btn-default btn-xs" href="/edit_utilidad/{{utilidad.id|unlocalize}}"><span class="glyphicon glyphicon-edit"></span>Editar Utilidad</a>
+
+<a class="btn btn-default btn-xs" href="/delete_utilidad/{{utilidad.id|unlocalize}}"><span class="glyphicon glyphicon-remove"></span>Eliminar Utilidad</a>
+
+{% endblock %}
+

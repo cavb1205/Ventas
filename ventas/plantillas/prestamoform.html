@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block contenido %}
+<meta charset="utf-8" />
+
+<link rel="stylesheet" href="/media/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+<script src="/media/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+
+<link rel="stylesheet" href="/media/bootstrap/css/jquery-ui.css">
+
+<script src="/media/bootstrap/js/jquery-ui.js"></script>
+
+
+<script>
+$(function() {
+    
+$( "#tags" ).autocomplete({
+    source: '/auto/'
+});
+});
+</script>
+
+
+ 
+<script >
+$(function () {
+$("#fecha_prestamo").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>       
+<script >
+$(function () {
+$("#fecha_estimada_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>
+<script >
+$(function () {
+$("#fecha_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>
+
+<div class="text-center">
+
+	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		{{formulario.as_p}}
+		
+		<p><input type='submit' value='Confirmar'/></p>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block contenido %}
+{% load bootstrap %}
+<div class="text-center">
+	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		<legend>Editar Almacen</legend>
+		{{ formulario|bootstrap_horizontal }}
+		<button type="submit" class="btn btn-primary">Confirmar</button>
+	</form>
+</div>
+{% endblock %}

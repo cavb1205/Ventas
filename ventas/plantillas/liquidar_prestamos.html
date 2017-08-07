@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block titulo %}Liquidar Ventas{% endblock %}
+
+{% block encabezado %}
+	<h1>Ventas Activos</h1>
+{% endblock %}
+
+{% block contenido %}
+{% load l10n %}
+
+
+<a class="btn btn-default btn-xs" href="/informe_recaudos_hoy/"><span class="
+glyphicon glyphicon-eye-open"></span> Auditar Abonos del Día</a>
+<a class="btn btn-default btn-xs" href="/fecha/"><span class="
+glyphicon glyphicon-eye-open"></span> Auditar Abonos x Fecha</a>
+<br>
+<br>
+
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Usuario</th>
+	  				<th>Fecha Venta</th>
+	  				<th>Días Restantes</th>
+	  				<th>Valor Cuota</th>
+	  				<th>Saldo Actual</th>
+
+	  				
+	  				
+
+	  			</tr>
+	  		</theader>
+    	{% for dato in prestamos %}
+    	
+    	
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id|unlocalize}}</td>
+    				<td>{{dato.id_usuarios}}</td>
+    				<td>{{dato.fecha_prestamo}}</td>
+    				
+    				<td>{{dato.dias_restantes|floatformat:2}}</td>
+    				
+    				<td>{{dato.valor_cuota}}</td>
+    				<td>{{dato.saldo_actual}}</td>
+    				
+    				
+    				<td><a class="btn btn-default btn-xs" href="/ventas_vigentes/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				
+    				<td><a class="btn btn-default btn-xs" href="/add_recaudo/{{dato.id|unlocalize}}/"><span class="glyphicon glyphicon-plus"></span> Abonar a la Venta</a> </td>
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay ventas activas.</p>
+		{% endfor %}
+		
+		</table>
+	</div>
+	{% if prestamos %}
+	<a class="btn btn-default btn-sm" href="/liquidar_ventas/page/1"> <span class="glyphicon glyphicon-fast-backward"></span> </a>
+	{% if prestamos.has_previous %}
+		<a class="btn btn-default btn-sm" href="/liquidar_ventas/page/{{ prestamos.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if prestamos.has_next %}
+		<a class="btn btn-default btn-sm" href="/liquidar_ventas/page/{{ prestamos.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/liquidar_ventas/page/{{prestamos.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br>
+	<h4>Página {{ prestamos.number }} de {{ prestamos.paginator.num_pages }}</h4>
+{% endif %}	
+
+</ul>
+{% endblock %}

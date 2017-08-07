@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+{% load l10n %}
+
+<div class="container-fluid">
+	<h1><strong>Venta No.</strong> {{prestamo.id|unlocalize}}</h1><br>
+	<h4><strong>Almacen:</strong> {{prestamo.id_cartera|capfirst}}</h4>
+	<h4><strong>Usuario:</strong> {{prestamo.id_usuarios|capfirst}}</h4>
+	<h4><strong>Fecha Venta:</strong> {{prestamo.fecha_prestamo}}</h4>
+	<h4><strong>Monto Solicitado:</strong> {{prestamo.monto_inicial}}</h4>
+	<h4><strong>Interes:</strong> {{prestamo.interes}}</h4>
+	<h4><strong>Cuotas:</strong> {{prestamo.cuotas}}</h4>
+	<h4><strong>Valor Cuota:</strong>{{prestamo.valor_cuota}}</h4>
+	<h4><strong>Total a Pagar:</strong> {{prestamo.total_pagar}}</h4>
+	<h4><strong>Fecha Vencimiento:</strong> {{prestamo.fecha_vencimiento}}</h4>
+	<h4><strong>Saldo Actual:</strong> {{prestamo.saldo_actual}}</h4>
+	<h4><strong>Observaciones:</strong> {{prestamo.observaciones|capfirst}}</h4>
+	<h4><strong>Estado de la Venta:</strong> {{prestamo.estado_prestamo}}</h4>
+</div>
+
+<br>
+<br>
+<div >
+<h2><strong>ABONOS A LA VENTA</strong></h2>
+<br>
+<br>
+<div class="table-responsive">
+  <table class="table">
+  	<theader>
+	  	<tr>
+	  		
+	  		<th>Fecha</th>
+	  		<th>Valor</th>
+	  		
+	  	</tr>
+	</theader>
+{% for dato in recaudos %}
+
+    <tbody>
+    	<tr>
+    		
+    		<td>{{dato.fecha_recaudo}}</td>
+    		<td>{{dato.valor}}</td>
+    	    <td><a class="btn btn-default btn-xs" href="/recaudo/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    		
+    	</tr>
+    </tbody>
+			 
+{% empty %}
+	<h2>No hay almacenes registradas</h2>
+{% endfor %}
+
+  </table>
+</div>
+
+</div>
+
+
+
+<br>
+<br>
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

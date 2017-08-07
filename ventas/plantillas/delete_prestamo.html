@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+
+
+{% block contenido %}
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span>Regresar</a>
+
+<h1 class="text-center">NO SE PUEDE ELIMINAR LA VENTA <br>{{prestamo.id_usuarios}} </h1><br><br><h4 class="text-center">A esta venta ya le han ingresado abonos, si desea eliminarla primero debe eliminar todos los abonos correspondientes a dicha venta</h4><br><br><br><br><br><br><br><br><br><br>
+
+{% endblock %}

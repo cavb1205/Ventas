@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+{% load l10n %}
+<div class="container-fluid">
+	<h1>Gasto #{{gasto.id|unlocalize}}</h1>
+	<h3><strong>Almacen:</strong> {{gasto.id_cartera}}</h3>
+	<h4><strong>Fecha:</strong>	{{gasto.fecha_gasto}} </h4>
+	<h4><strong>Tipo de Gasto:</strong>	{{gasto.tipo_gasto}}</h4>
+	<h4><strong>Valor:</strong>	{{gasto.valor}}</h4>
+	<h4><strong>Observaciones:</strong>		{{gasto.observaciones}}</h4>
+	
+</div>
+
+<br>
+
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+
+<a class="btn btn-default btn-xs" href="/edit_gasto/{{gasto.id|unlocalize}}"><span class="glyphicon glyphicon-edit"></span>Editar Gasto</a>
+
+<a class="btn btn-default btn-xs" href="/delete_gasto/{{gasto.id|unlocalize}}"><span class="glyphicon glyphicon-remove"></span>Eliminar Gasto</a>
+
+{% endblock %}
+

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block titulo %}Equipos Audiovisuales{% endblock %}
+
+{% block encabezado %}
+	<h1>Ventas Activas</h1>
+{% endblock %}
+
+{% block contenido %}
+{% if user.is_superuser %}
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Regresar al Almacen</a>
+{% endif %}
+<a class="btn btn-default btn-xs" href="/informe_recaudos_hoy/"><span class="
+glyphicon glyphicon-eye-open"></span> Auditar Abonos del Día</a>
+
+<a class="btn btn-default btn-xs" href="/fecha/"><span class="
+glyphicon glyphicon-eye-open"></span> Auditar Abonos x Fecha</a>
+
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Almacen</th>
+	  				<th>Venta</th>
+	  				<th>Fecha Recaudo</th>
+	  				<th>Valor</th>
+	  				
+	  			</tr>
+	  		</theader>
+    	{% for dato in recaudos %}
+    		<tbody>
+    			<tr>
+    				{% load l10n %}
+
+					<td>{{dato.id|unlocalize }}</td>
+    				<td>{{dato.id_cartera}}</td>
+    				<td>{{dato.id_prestamo}}</td>
+    				<td>{{dato.fecha_recaudo}}</td>
+    				<td>{{dato.valor}}</td>
+    				
+    				<td><a class="btn btn-default btn-xs" href="/recaudo/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				
+    				
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay registros de recaudos</p>
+		{% endfor %}
+		</table>
+	</div>
+	{% if recaudos %}
+	<a class="btn btn-default btn-sm" href="/recaudos/page/1"> <span class="glyphicon glyphicon-fast-backward"></span> </a>
+	{% if recaudos.has_previous %}
+		<a class="btn btn-default btn-sm" href="/recaudos/page/{{ recaudos.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if recaudos.has_next %}
+		<a class="btn btn-default btn-sm" href="/recaudos/page/{{ recaudos.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/recaudos/page/{{recaudos.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br>
+	<h4>Página {{ recaudos.number }} de {{ recaudos.paginator.num_pages }}</h4>
+{% endif %}	
+
+</ul>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block titulo %}Liquidación Almacen{% endblock %}
+
+{% block encabezado %}
+	<h1>Liquidación Almacen</h1>
+{% endblock %}
+
+{% block contenido %}
+
+{% if user.is_superuser %}
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Regresar </a>
+<a class="btn btn-default btn-lg" href="/almacen/{{id_cartera}}"><span class="glyphicon glyphicon-home"></span> Ir Almacen</a>
+
+{% else %}
+<a class="btn btn-default btn-lg" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-circle-arrow-left"></span> Regresar </a>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<a class="btn btn-default btn-lg" href="/cerrar_dia/{{fecha}}"><span class="glyphicon glyphicon-saved"></span> Cerrar Día </a>
+{% endif %}
+
+
+<br>
+<h1 class="text-center">LIQUIDACIÓN DE ALMACÉN</h1>
+<br>
+<br>
+<br>
+<div class="container-fluid">
+	<h4><strong>Fecha de Liquidación:</strong> {{fecha}}</h1> 
+	<h4><strong>Almacén:</strong> {{cartera.responsable}}</h3>
+	<h4><strong>Caja Anterior:</strong>	{{caja_anterior}}</h4>
+</div>
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>DETALLE</th>
+	  				<th>ENTRADAS</th>
+	  				<th>SALIDAS</th>
+	  				<th>SALDO</th>
+	  				  				
+	  			</tr>
+	  		</theader>
+    
+    		<tbody>
+    			<tr>
+    				<td>Base de Liquidación </td><td>{{caja_anterior}}</td><td>0</td><td>{{caja_anterior}}</td>
+    			</tr>
+                <tr>
+                    <td>Ingresos por Base </td><td>{{total_base}}</td><td>0</td><td>{{sum_bases}}</td>
+                </tr>
+    			<tr>
+    				<td>Ingresos por Cobro </td><td>{{total_ingresos}}</td><td>0</td><td>{{sum_monto_cobro}}</td>
+    			</tr>
+    			<tr>
+    				<td>Egresos por Ventas </td><td>0</td><td>{{total_prestamos}}</td><td>{{rest_prestamos}}</td>
+    			</tr>
+    			<tr>
+    				<td>Egresos por Gastos </td><td>0</td><td>{{total_gastos}}</td><td>{{rest_gastos}}</td>
+    			</tr>
+    			<tr>
+    				<td>Egresos por Utilidades </td><td>0</td><td>{{total_utilidades}}</td><td>{{rest_utilidades}}</td>
+    			</tr>
+     			
+    			<tr>
+    				<td></td><td></td><th>Saldo Final</th><th>{{rest_utilidades}}</th>
+    			</tr>
+    			<tr>
+    				<td></td><th></th><th></th><th></th>
+    			</tr>
+    			<tr>
+    				<td></td><td>Promedio: {{total_ingresos}}</td><td>Debido Cob: {{total_cobrar_dia}} </td><td>Ventas Cob: {% if total_cobro > 0 %} {{total_cobro}} {% else %} {{sum_prestamos}} {% endif %}</td>
+    			</tr>
+    		</tbody>
+	
+		</table>
+	</div>
+
+</ul>
+{% endblock %}

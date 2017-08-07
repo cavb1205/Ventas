@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block titulo %}Logs{% endblock %}
+
+{% block encabezado %}
+	<h1> Acciones recientes</h1>
+{% endblock %}
+
+{% block contenido %}
+
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Hora de la Acción</th>
+	  				<th>Tipo</th>
+	  				<th>Usuario</th>
+	  				<th>Acción</th>
+	  				
+
+	  			</tr>
+	  		</theader>
+    	{% for dato in logs %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id}}</td>
+    				<td>{{dato.action_time}}</td>
+    				<td>{{dato.content_type|capfirst}}</td>
+    				<td>{{dato.user|capfirst}}</td>
+    				<td>{{dato.change_message}}</td>
+    				<td>{{dato.direccion}}</td>
+    				<td>{{dato.get_estado_display}}</td>
+    				<td>{{dato.id_cartera}}</td>
+    				
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay personas registradas.</p>
+		{% endfor %}
+		</table>
+	</div>
+{% if usuarios %}
+	<a class="btn btn-default btn-sm" href="/usuarios/page/1"> <span class="glyphicon glyphicon-fast-backward"></span></a>
+	{% if usuarios.has_previous %}
+		<a class="btn btn-default btn-sm" href="/usuarios/page/{{ usuarios.previous_page_number }}/"> <span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if usuarios.has_next %}
+		<a class="btn btn-default btn-sm" href="/usuarios/page/{{ usuarios.next_page_number }}/"> <span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/usuarios/page/{{usuarios.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span></a>
+
+<br><br><br>
+	<h4>Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}</h4>
+{% endif %}	
+
+</ul>
+{% endblock %}

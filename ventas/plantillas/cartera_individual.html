@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Almacen{% endblock %}
+
+
+{% block contenido %}
+{% if user.is_superuser %}
+<a class="btn btn-default btn-lg" href="/almacen_base/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Bases </a>
+<a class="btn btn-default btn-lg" href="/almacen_gastos/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Gastos</a>
+<a class="btn btn-default btn-lg" href="/almacen_usuarios/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Clientes</a>
+<a class="btn btn-default btn-lg" href="/almacen_utilidades/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Utilidades</a>
+<a class="btn btn-default btn-lg" href="/almacen_ventas_finalizados/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Ventas Finalizadas</a>
+<a class="btn btn-default btn-lg" href="/almacen_ventas_vigentes/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Ventas Vigentes</a>
+<a class="btn btn-default btn-lg" href="/almacen_ventas_perdidas/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Ventas en Pérdidas</a>
+<a class="btn btn-default btn-lg" href="/almacen_recaudos/{{cartera.id}}"><span class="glyphicon glyphicon-search"></span> Recaudos</a>
+<a class="btn btn-default btn-lg" href="/liquidar_almacen_admin/{{cartera.id}}"><span class="glyphicon glyphicon-ok"></span> Liquidar Almacen</a>
+<a class="btn btn-default btn-lg" href="/informe_recaudos_hoy_admin/{{cartera.id}}"><span class="
+glyphicon glyphicon-eye-open"></span> Auditar Abonos del Día</a>
+<a class="btn btn-default btn-lg" href="/fecha_admin/{{cartera.id}}"><span class="
+glyphicon glyphicon-eye-open"></span> Auditar Abonos x Fecha</a>
+{% else %}
+<a class="btn btn-default btn-lg" href="/liquidar_almacen"><span class="glyphicon glyphicon-ok"></span> Liquidar Almacen</a>
+{% endif %}
+<div class="container-fluid">
+	<h1>Almacen #{{cartera.id}}</h1>
+	<h3>Documento: {{cartera.documento}}</h3>
+	<h4><strong>Nombres:</strong>	{{cartera.responsable.first_name|capfirst}} </h4>
+	<h4><strong>Celular:</strong>	{{cartera.celular}}</h4>
+	<h4><strong>Dirección:</strong>	{{cartera.direccion|capfirst}}</h4>
+	<h4><strong>Monto:</strong>		{{cartera.monto}}</h4>
+	<h4><strong>Ciudad:</strong>	{{cartera.ciudad|capfirst}}</h4>
+</div>
+
+<br>
+
+<div class="table-responsive">
+	<h2>ESTADO ACTUAL DEL ALMACEN</h2>
+  <table class="table">
+  	<theader>
+	  	<tr>
+	  		<th>+ Bases</th>
+	  		<th>+ Ingresos x Ventas</th>
+	  		<th>- Gastos</th>
+	  		<th>- Utilidades</th>
+	  		<th>- Ventas</th>
+	  		<th>- Pérdidas</th>
+	  		<th>TOTAL</th>
+	  	</tr>
+	</theader>
+    <tbody>
+    	<tr>
+    		<td>{{sum_bases}}</td>
+    		<td>{{ingresos_prestamo}}</td>
+    		<td>{{sum_gastos}}</td>
+    		<td>{{sum_utilidades}}</td>
+    		<td>{{sum_prestamos}}</td>
+    		<td>{{sum_perdidas}}</td>
+    		<td>{{total}}</td>
+    	</tr>
+    </tbody>
+  </table>
+</div>
+
+
+<br>
+
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+{% if user.is_superuser %}
+<a class="btn btn-default btn-xs" href="/edit_almacen/{{cartera.id}}"><span class="glyphicon glyphicon-edit"></span>Editar Almacen</a>
+<a class="btn btn-default btn-xs" href="/delete_almacen/{{cartera.id}}"><span class="glyphicon glyphicon-remove"></span>Eliminar Almacen</a>
+{% endif %}
+
+{% endblock %}
+

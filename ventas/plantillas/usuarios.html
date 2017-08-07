@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuarios registrados{% endblock %}
+
+{% block encabezado %}
+	<h1>Usuarios</h1>
+{% endblock %}
+
+{% block contenido %}
+{% load l10n %}
+<a class="btn btn-default btn-lg" href="/add_usuario"><span class="glyphicon glyphicon-plus-sign"></span> Usuario</a>
+<br>
+<br>
+<br>
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Documento</th>
+	  				<th>Nombres</th>
+	  				<th>Apellidos</th>
+	  				<th>Celular</th>
+	  				<th>Direccion</th>
+	  				<th>Estado</th>
+	  				<th>Almacen</th>
+
+	  			</tr>
+	  		</theader>
+    	{% for dato in usuarios %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id|unlocalize}}</td>
+    				<td>{{dato.documento}}</td>
+    				<td>{{dato.nombres|capfirst}}</td>
+    				<td>{{dato.apellidos|capfirst}}</td>
+    				<td>{{dato.celular}}</td>
+    				<td>{{dato.direccion}}</td>
+    				<td>{{dato.get_estado_display}}</td>
+    				<td>{{dato.id_cartera}}</td>
+    				<td><a class="btn btn-default btn-xs" href="/usuarios/{{dato.id|unlocalize}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay personas registradas.</p>
+		{% endfor %}
+		</table>
+	</div>
+{% if usuarios %}
+	<a class="btn btn-default btn-sm" href="/usuarios/page/1"> <span class="glyphicon glyphicon-fast-backward"></span></a>
+	{% if usuarios.has_previous %}
+		<a class="btn btn-default btn-sm" href="/usuarios/page/{{ usuarios.previous_page_number }}/"> <span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if usuarios.has_next %}
+		<a class="btn btn-default btn-sm" href="/usuarios/page/{{ usuarios.next_page_number }}/"> <span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/usuarios/page/{{usuarios.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span></a>
+
+<br>
+	<h4>Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages }}</h4>
+{% endif %}	
+
+</ul>
+{% endblock %}
