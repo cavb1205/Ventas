@@ -99,4 +99,5 @@ urlpatterns = [
     url(r'^logout/$',views.logout_view),
 
 
-]
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

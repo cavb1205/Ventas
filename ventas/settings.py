@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['198.199.75.92']
 
-ADMIN_MEDIA_PREFIX = '/media/bootstrap/'
+#ADMIN_MEDIA_PREFIX = '/media/bootstrap/'
 #ADMIN_MEDIA_PREFIX = '/static/admin/' 
 # Application definition
 
@@ -64,6 +64,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.core.context_processors.static',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -129,11 +130,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = '/media/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR,'media/')
+STATIC_ROOT = os.path.join(BASE_DIR,'/ventas/static')
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forwa slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-  #  os.path.join(BASE_DIR,'ventas/media/bootstrap/'),
+    os.path.join(BASE_DIR,'ventas/static'),
 #    '/home/camilo/Documentos/proyectos_django/ventas/ventas/media/bootstrap/static/',
 )
