@@ -27,6 +27,9 @@ class BaseForm(forms.ModelForm):
 	class Meta:
 		model = Base
 		exclude = ('id_cartera',)
+		widgets = {
+ 			'fecha_entrega':forms.DateInput(attrs={'id':'datepicker'})
+  			}
 
 
 class UtilidadesAdminForm(forms.ModelForm):

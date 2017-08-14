@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^logs/$',views.logs),
     url(r'^informes/$',views.informes),
     url(r'^usuarios/page/(?P<pagina>.*)/$',views.usuarios),
+    url(r'^usuarios_renovacion/page/(?P<pagina>.*)/$',views.usuarios_renovacion),
     url(r'^add_usuario/$',views.add_usuario),
     url(r'^edit_usuario/(?P<id_usuario>.*)/$',views.edit_usuario),
     url(r'^delete_usuario/(?P<id_usuario>.*)/$',views.delete_usuario),

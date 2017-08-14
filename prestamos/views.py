@@ -123,6 +123,29 @@ def usuarios(request,pagina):
 	return render_to_response('usuarios.html',{'usuarios':list_usuarios},context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
+def usuarios_renovacion(request,pagina):
+	cartera = Cartera.objects.filter(responsable_id=request.user.id)
+	print 'consultamos prestamos'
+	prestamos = Prestamos.objects.filter(id_cartera=cartera).exclude(estado_prestamo_id=2)
+	lista = []
+	for x in prestamos:
+		print x.id_usuarios_id
+		lista.append(x.id_usuarios_id)
+	print 'imprime lista'
+	print lista
+	usuarios = Usuarios.objects.filter(id_cartera=cartera).filter(estado=True).exclude(id__in=lista)
+	paginator = Paginator(usuarios,50)
+	try:
+		page = int(pagina)
+	except:
+		page = 1
+	try:
+		list_usuarios = paginator.page(page)
+	except (EmptyPage, InvalidPage):
+		list_usuarios = paginator.page(paginator.num_pages)
+	return render_to_response('usuarios_renovacion.html',{'usuarios':list_usuarios},context_instance=RequestContext(request))
+
+@login_required(login_url='/login/')
 def usuario_individual(request,id_usuario):	
 	usuario = Usuarios.objects.get(id=id_usuario)
 	return render_to_response('usuario_individual.html',{'usuario':usuario},context_instance=RequestContext(request))
@@ -618,12 +641,12 @@ def add_base(request):
 				print cartera.monto
 				return HttpResponseRedirect('/bases/page/1')
 		else:
-			formulario = BaseForm()
+			formulario = BaseForm(initial={'fecha_entrega':date.today()})
 		return render_to_response('baseform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
 @login_required(login_url='/login/')
 def edit_base(request,id_base):
-
+  
 	base = Base.objects.get(id=id_base)
 	viejo = base.valor
 	if request.method == 'POST':

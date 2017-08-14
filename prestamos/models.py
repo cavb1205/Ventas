@@ -132,7 +132,7 @@ class Prestamos(models.Model):
 	id_usuarios = models.ForeignKey(Usuarios,verbose_name='Cliente')
 
 	def __unicode__(self):
-		mostrar="%s - %s"%(self.id,self.id_usuarios)
+		mostrar="%s "%(self.id_usuarios)
 		return mostrar
 
 	def dias_restantes(self):
