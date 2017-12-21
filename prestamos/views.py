@@ -21,6 +21,7 @@ from datetime import datetime
 from django.core.urlresolvers import reverse
 
 
+
 # Create your views here.
 @login_required(login_url='/login/')
 def inicio(request):
@@ -1399,14 +1400,15 @@ def add_abono(request,id_prestamo):
 		else:
 			print 'llama al formulario con los datos del abono'
 			print q
-			print prestamo
+			print 'nada'
+			print prestamo.id_usuarios
 			##comparamos que el valor de la cuota no sea mayor al saldo actual##
 			if prestamo.saldo_actual < prestamo.valor_cuota:
 				formulario = RecaudosForm(initial={'fecha_recaudo':date.today(),'valor':prestamo.saldo_actual})
 			else:	
 				formulario = RecaudosForm(initial={'fecha_recaudo':date.today(),'valor':prestamo.valor_cuota})
 			
-		return render_to_response('recaudosform.html',{'formulario':formulario},context_instance=RequestContext(request))
+		return render_to_response('recaudosform.html',{'formulario':formulario, 'prestamo':prestamo},context_instance=RequestContext(request))
 
 
 ####liquidar ventas * fecha #########	

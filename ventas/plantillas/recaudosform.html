@@ -15,7 +15,7 @@
 </script>
 <div class="text-center">
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
-		<legend>Agregar Recaudo</legend>
+		<legend>Agregar Recaudo a {{ prestamo.id_usuarios }}</legend>
 		{{ formulario|bootstrap_horizontal }}
 		<br><br>
 		<button type="submit" class="btn btn-primary">Confirmar</button>
