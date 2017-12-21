@@ -98,7 +98,7 @@ class Usuarios(models.Model):
  
 
 	def __unicode__(self):
-		mostrar="%s - %s - %s "%(self.documento,self.nombres,self.apellidos)
+		mostrar="%s - %s "%(self.nombres,self.apellidos)
 		return mostrar
 
 class Plazos(models.Model):
