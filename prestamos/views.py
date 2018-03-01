@@ -220,7 +220,7 @@ def cartera_individual(request,id_cartera):
 		
 	ingresos_prestamo = sum_finalizados
 	
-	total = sum_bases + sum_finalizados - faltante -sum_gastos -sum_utilidades - sum_perdidas
+	total = sum_bases + sum_finalizados - faltante -sum_gastos -sum_utilidades 
 
 	return render_to_response('cartera_individual.html',{'cartera':cartera,'sum_recaudo_perdidas':sum_recaudo_perdidas,'ingresos_prestamo':ingresos_prestamo,'total':total,'sum_recaudos':sum_recaudos,'sum_perdidas':sum_perdidas,'sum_prestamos':sum_prestamos,'sum_utilidades':sum_utilidades,'sum_bases':sum_bases,'sum_gastos':sum_gastos},context_instance=RequestContext(request))
 
@@ -1051,15 +1051,6 @@ def close_prestamo_vigente(request,id_prestamo):
 			close = formulario.save(commit=False)
 			close.save()
 			print prestamo.estado_prestamo
-			if prestamo.estado_prestamo_id == 5:
-
-				cartera = Cartera.objects.get(id=prestamo.id_cartera.id)
-				cartera.monto = cartera.monto - prestamo.saldo_actual
-				cartera.save()
-			else:
-				cartera = Cartera.objects.get(id=prestamo.id_cartera.id)
-				cartera.monto = cartera.monto + prestamo.saldo_actual
-				cartera.save()
 
 			return HttpResponseRedirect('/ventas_vigentes/%s/'%prestamo.id)
 	else:

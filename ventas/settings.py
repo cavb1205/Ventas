@@ -130,11 +130,11 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 STATIC_URL = '/media/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR,'/ventas/static')
+STATIC_ROOT = os.path.join(BASE_DIR,'/ventas/static/')
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forwa slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR,'ventas/static'),
-#    '/home/camilo/Documentos/proyectos_django/ventas/ventas/media/bootstrap/static/',
+   # '/home/camilo/Documentos/proyectos_django/ventas/ventas/media/bootstrap/static/',
 )
