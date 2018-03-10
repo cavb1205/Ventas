@@ -39,6 +39,7 @@
 	  				<th>DETALLE</th>
 	  				<th>ENTRADAS</th>
 	  				<th>SALIDAS</th>
+                    <th>PÉRDIDAS</th>
 	  				<th>SALDO</th>
 	  				  				
 	  			</tr>
@@ -46,26 +47,29 @@
     
     		<tbody>
     			<tr>
-    				<td>Base de Liquidación </td><td>{{caja_anterior}}</td><td>0</td><td>{{caja_anterior}}</td>
+    				<td>Base de Liquidación </td><td>{{caja_anterior}}</td><td>0</td><td>0</td><td>{{caja_anterior}}</td>
     			</tr>
                 <tr>
-                    <td>Ingresos por Base </td><td>{{total_base}}</td><td>0</td><td>{{sum_bases}}</td>
+                    <td>Ingresos por Base </td><td>{{total_base}}</td><td>0</td><td>0</td><td>{{sum_bases}}</td>
                 </tr>
     			<tr>
-    				<td>Ingresos por Cobro </td><td>{{total_ingresos}}</td><td>0</td><td>{{sum_monto_cobro}}</td>
+    				<td>Ingresos por Cobro </td><td>{{total_ingresos}}</td><td>0</td><td>0</td><td>{{sum_monto_cobro}}</td>
     			</tr>
     			<tr>
-    				<td>Egresos por Ventas </td><td>0</td><td>{{total_prestamos}}</td><td>{{rest_prestamos}}</td>
+    				<td>Egresos por Ventas </td><td>0</td><td>{{total_prestamos}}</td><td>0</td><td>{{rest_prestamos}}</td>
     			</tr>
     			<tr>
-    				<td>Egresos por Gastos </td><td>0</td><td>{{total_gastos}}</td><td>{{rest_gastos}}</td>
+    				<td>Egresos por Gastos </td><td>0</td><td>{{total_gastos}}</td><td>0</td><td>{{rest_gastos}}</td>
     			</tr>
     			<tr>
-    				<td>Egresos por Utilidades </td><td>0</td><td>{{total_utilidades}}</td><td>{{rest_utilidades}}</td>
+    				<td>Egresos por Utilidades </td><td>0</td><td>{{total_utilidades}}</td><td>0</td><td>{{rest_utilidades}}</td>
     			</tr>
-     			
+     			<tr>
+                    <td>Ventas en Pérdidas </td><td>0</td><td>0</td><td>{{total_perdidas}}</td><td>{{rest_utilidades}}</td>
+                </tr>
+                
     			<tr>
-    				<td></td><td></td><th>Saldo Final</th><th>{{rest_utilidades}}</th>
+    				<td></td><td></td><td></td><th>Saldo Final</th><th>{{rest_utilidades}}</th>
     			</tr>
     			<tr>
     				<td></td><th></th><th></th><th></th>

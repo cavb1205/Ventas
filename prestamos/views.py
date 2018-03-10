@@ -1765,6 +1765,11 @@ def liquidar_cartera_admin(request,id_cartera):
 				for ingreso in ingresos:
 					total_ingresos = total_ingresos + ingreso.valor
 				sum_monto_cobro = total_ingresos + sum_bases
+			#calculamos las perdidas registradas para esa fecha
+				total_perdidas = 0
+				perdidas = Prestamos.objects.filter(id_cartera=cartera).filter(estado_prestamo=5).filter(fecha_vencimiento=fecha)
+				for perdida in perdidas:
+					total_perdidas = total_perdidas + perdida.saldo_actual
 				#calculamos los egresos de los prestamos
 				total_prestamos=0
 				total_cobrar_dia=0
@@ -1818,7 +1823,7 @@ def liquidar_cartera_admin(request,id_cartera):
 					total_cobro = total_cobro + cobro.valor
 				print 'cobrosssssssssssssssssssssssssssssssssssss'
 				print cobro
-				return render_to_response('liquidacion_cobrador.html',{'sum_bases':sum_bases,'total_base':total_base,'sum_prestamos':sum_prestamos,'total_cobro':total_cobro,'cartera':cartera,'fecha':fecha,'caja_anterior':caja_anterior,'total_ingresos':total_ingresos,'sum_monto_cobro':sum_monto_cobro,'total_prestamos':total_prestamos,'rest_prestamos':rest_prestamos,'total_gastos':total_gastos,'rest_gastos':rest_gastos,'total_cobrar_dia':total_cobrar_dia,'id_cartera':id_cartera,'total_utilidades':total_utilidades,'rest_utilidades':rest_utilidades},context_instance=RequestContext(request))
+				return render_to_response('liquidacion_cobrador.html',{'sum_bases':sum_bases,'total_base':total_base,'sum_prestamos':sum_prestamos,'total_cobro':total_cobro,'cartera':cartera,'fecha':fecha,'caja_anterior':caja_anterior,'total_ingresos':total_ingresos,'sum_monto_cobro':sum_monto_cobro,'total_prestamos':total_prestamos,'rest_prestamos':rest_prestamos,'total_gastos':total_gastos,'rest_gastos':rest_gastos,'total_perdidas':total_perdidas,'total_cobrar_dia':total_cobrar_dia,'id_cartera':id_cartera,'total_utilidades':total_utilidades,'rest_utilidades':rest_utilidades},context_instance=RequestContext(request))
 		else:
 			formulario = fechaForm(initial={'fecha':date.today()})
 			return render_to_response('auditar_abonos_fecha.html',{'formulario':formulario},context_instance=RequestContext(request))
@@ -1839,19 +1844,27 @@ def liquidar_cartera(request):
 			print dia.fecha
 			print dia.valor
 			caja_anterior=dia.valor
-			#calculamos los ingresos por base al almacen
+		#calculamos los ingresos por base al almacen
 			total_base = 0
 			bases = Base.objects.filter(id_cartera=cartera).filter(fecha_entrega=fecha)
 			for base in bases:
 				total_base = total_base + base.valor 
 			sum_bases=caja_anterior+total_base
-			#calculamos los ingresos diarios
+		#calculamos los ingresos diarios
 			total_ingresos = 0
 			ingresos = Recaudos.objects.filter(id_cartera=cartera).filter(fecha_recaudo=fecha) 
 			for ingreso in ingresos:
 				total_ingresos = total_ingresos + ingreso.valor
 			sum_monto_cobro = total_ingresos + sum_bases
-			#calculamos los egresos de los prestamos
+		#calculamos las perdidas registradas para esa fecha
+			total_perdidas = 0
+			perdidas = Prestamos.objects.filter(id_cartera=cartera).filter(estado_prestamo=5).filter(fecha_vencimiento=fecha)
+			for perdida in perdidas:
+				total_perdidas = total_perdidas + perdida.saldo_actual
+
+
+
+		#calculamos los egresos de los prestamos
 			total_prestamos=0
 			total_cobrar_dia=0
 			prestamos_vigentes = Prestamos.objects.filter(id_cartera=cartera).exclude(estado_prestamo=2).exclude(estado_prestamo=5)
@@ -1906,7 +1919,7 @@ def liquidar_cartera(request):
 				total_cobro = total_cobro + cobro.valor
 			print 'cobrosssssssssssssssssssssssssssssssssssss'
 			print cobro
-			return render_to_response('liquidacion_cobrador.html',{'sum_bases':sum_bases,'total_base':total_base,'sum_prestamos':sum_prestamos,'rest_utilidades':rest_utilidades,'total_utilidades':total_utilidades,'total_cobro':total_cobro,'cartera':cartera,'fecha':fecha,'caja_anterior':caja_anterior,'total_ingresos':total_ingresos,'sum_monto_cobro':sum_monto_cobro,'total_prestamos':total_prestamos,'rest_prestamos':rest_prestamos,'total_gastos':total_gastos,'rest_gastos':rest_gastos,'total_cobrar_dia':total_cobrar_dia},context_instance=RequestContext(request))
+			return render_to_response('liquidacion_cobrador.html',{'sum_bases':sum_bases,'total_base':total_base,'sum_prestamos':sum_prestamos,'rest_utilidades':rest_utilidades,'total_utilidades':total_utilidades,'total_perdidas':total_perdidas,'total_cobro':total_cobro,'cartera':cartera,'fecha':fecha,'caja_anterior':caja_anterior,'total_ingresos':total_ingresos,'sum_monto_cobro':sum_monto_cobro,'total_prestamos':total_prestamos,'rest_prestamos':rest_prestamos,'total_gastos':total_gastos,'rest_gastos':rest_gastos,'total_cobrar_dia':total_cobrar_dia},context_instance=RequestContext(request))
 	else:
 		formulario = fechaForm(initial={'fecha':date.today()})
 		return render_to_response('auditar_abonos_fecha.html',{'formulario':formulario},context_instance=RequestContext(request))

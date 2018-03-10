@@ -104,7 +104,7 @@ class PrestamosForm(forms.ModelForm):
 class Close_PrestamosForm(forms.ModelForm):
 	class Meta:
 		model = Prestamos
-		fields = ('observaciones','estado_prestamo')
+		fields = ('observaciones','estado_prestamo','fecha_vencimiento')
 
 
 class RecaudosAdminForm(forms.ModelForm):
