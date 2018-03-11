@@ -1481,7 +1481,7 @@ def add_abono_x_fecha(request,id_prestamo,fecha):
 		else:	
 			formulario = RecaudosForm(initial={'fecha_recaudo':fecha,'valor':prestamo.valor_cuota})
 			
-	return render_to_response('recaudosform.html',{'formulario':formulario},context_instance=RequestContext(request))
+	return render_to_response('recaudosform.html',{'formulario':formulario,'prestamo':prestamo},context_instance=RequestContext(request))
 
 
 
